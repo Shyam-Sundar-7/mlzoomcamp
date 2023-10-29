@@ -9,6 +9,7 @@ lightgbm = "*"
 flask = "*"
 waitress = "*"
 docker = "*"
+pandas = "*"
 
 [dev-packages]
 
