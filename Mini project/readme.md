@@ -20,3 +20,78 @@ Now, in order to predict whether a customer would be interested in Vehicle insur
 | Policy\_Sales\_Channel | Anonymised Code for the channel of outreaching to the customer ie. Different Agents, Over Mail, Over Phone, In Person, etc. |
 | Vintage | Number of Days, Customer has been associated with the company |
 | Response | 1 :  Customer is interested, 0 : Customer is not interested |
+
+## Installation Steps
+Install Pipenv:
+
+If you don't have Pipenv installed, you can install it using pip inside the project directory:
+``````
+pip install pipenv
+```````
+
+### Initialize a Pipenv Environment:
+
+Run the following command in your project directory to create a new Pipenv environment and a Pipfile:
+
+``````
+pipenv --python 3.11  # Replace 3.11 with your preferred Python version
+``````
+### Install Dependencies from requirements.txt:
+
+If you have a requirements.txt file containing a list of dependencies, you can install them all at once. Make sure the requirements.txt file is in your project directory. Run:
+``````
+pipenv install -r requirements.txt
+``````
+
+### Activate the Pipenv Environment:
+
+To activate the Pipenv environment, use the following command:
+``````
+pipenv shell
+``````
+
+## Run the Waitress Server:
+
+To serve your Flask application, you need to run Waitress from the command line. Use the following command:
+
+``````
+waitress-serve --host=0.0.0.0 --port=9696 predict:app
+``````
+--host=0.0.0.0: This option makes your Flask app accessible from any network interface.
+--port=9696: This is the port number on which your app will be accessible. You can change it to your desired port.
+predict:app: Replace the predict with your Flask application's Python file name (without the .py extension), and the second app with your Flask app variable name (usually app by default).
+
+### Access Your Flask Application:
+
+Your Flask application is now running, and you can access it in your web browser by visiting:
+
+``````
+http://your_server_ip:9696
+``````
+Replace your_server_ip with the IP address or hostname of your server.
+
+## Building the Docker Image
+
+### Build the Docker Image:
+
+Use the following command to build a Docker image for the PeopleCare prediction service. The -t flag assigns a name and optionally a tag to the image. The . at the end indicates the build context is the current directory:
+
+``````
+docker build -t peoplecare-prediction .
+``````
+This command will create a Docker image named peoplecare-prediction.
+
+## Running the Docker Container
+
+### Run the Docker Container:
+
+To run the PeopleCare prediction service as a Docker container, you can use the following command. The -p flag maps the host port 9696 to the container port 9696:
+
+``````
+docker run -p 9696:9696 peoplecare-prediction:latest
+``````
+peoplecare-prediction:latest is the name and tag of the Docker image you built earlier.
+The PeopleCare prediction service will now be running inside a Docker container.
+
+
+This README description instructs the reader to run the `prediction_instance.ipynb` file after running the Docker container to test the PeopleCare prediction service with sample data and view the results.
