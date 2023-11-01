@@ -95,3 +95,40 @@ The PeopleCare prediction service will now be running inside a Docker container.
 
 
 This README description instructs the reader to run the `prediction_instance.ipynb` file after running the Docker container to test the PeopleCare prediction service with sample data and view the results.
+
+
+## Docker to Azure cloud
+
+- Sign in to Azure Portal:
+ Go to the Azure Portal at https://portal.azure.com/.
+Sign in with your Azure account credentials.
+Create a Resource:
+- Click on the "+ Create a resource" button on the left-hand side or navigate to the "Create a resource" option.
+Search for Container App:
+- In the search bar, type "Container App" or "Web App for Containers" and select it from the search results.
+Configure the Container App:
+- Click the "Create" button to start configuring your Container App.
+Basics Configuration:
+Fill in the required information, such as the resource group, app name, and region.
+Docker Container Settings:
+- Under "Docker", select "Docker Hub" as the registry.
+In the "Image Source" field, enter the URL of the Docker image you want to use from Docker Hub.
+```
+shyamsundar007/peoplecare:your-tag  
+```
+this is the public image in docker hub which you can use or build from the above steps after pushing into dockerhub
+Port Configuration:
+- Scroll down to the "Ports" section. In the "Port" field, enter "9696" as the port number for your application.
+Review and Create:
+- Review the other settings and configurations to ensure they meet your requirements.
+Create the Container App:
+- Click the "Review + create" button.
+- Review and Validation: Review all the settings and configurations, and ensure they are correct.
+Create the Resource:
+- Once you are satisfied, click the "Create" button to create the Container App.
+- Deployment and Provisioning:Azure will start provisioning your Container App with the specified settings. This may take a few minutes.
+Accessing the URL:After the deployment is complete, you will receive a URL for your Container App.
+```
+url="https://dockercapp.proudtree-db538f2f.centralindia.azurecontainerapps.io/predict"  # from my azure portal 
+```
+Using this url in the prediction_instance.ipynb, you can get the output from anywhere.
