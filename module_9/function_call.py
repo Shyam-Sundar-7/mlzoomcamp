@@ -1,10 +1,15 @@
 
-import tensorflow as tf
+# import tensorflow as tf
 
 from io import BytesIO
 from urllib import request
 import numpy as np
+import logging
+import json
 from PIL import Image
+
+
+import tflite_runtime.interpreter as tflite
 
 def download_image(url):
     with request.urlopen(url) as resp:
@@ -13,7 +18,7 @@ def download_image(url):
     img = Image.open(stream)
     return img
 
-interpreter = tf.lite.Interpreter(model_path="bees-wasps-v2.tflite")
+interpreter = tflite.Interpreter(model_path="bees-wasps-v2.tflite")
 interpreter.allocate_tensors()
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
@@ -41,6 +46,8 @@ def predict(url):
     preds = interpreter.get_tensor(output_index)
     return preds[0][0]
 
-if __name__== "__main__":
-    url="https://habrastorage.org/webt/rt/d9/dh/rtd9dhsmhwrdezeldzoqgijdg8a.jpeg"
-    print(predict(url))
+
+def lambda_handler(event,context):
+    url=event['url']
+    pred=predict(url)
+    return pred
